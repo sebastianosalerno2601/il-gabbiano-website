@@ -111,7 +111,29 @@ const scaleIn = {
 
 export default function Home() {
   const [isNightMode, setIsNightMode] = useState(false);
+  const [selectedTeamIndex, setSelectedTeamIndex] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
+
+  const navItems = [
+    { label: "Servizi", href: "#servizi" },
+    { label: "Perché noi", href: "#perche-noi" },
+    { label: "Team", href: "#team" },
+    { label: "Clienti", href: "#clienti" },
+  ];
+
+  const scrollToSection = (hash: string) => {
+    setMobileMenuOpen(false);
+    const id = hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (!el) return;
+    const headerOffset = 80;
+    const delay = 150;
+    setTimeout(() => {
+      const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }, delay);
+  };
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.05]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0.3]);
 
@@ -151,18 +173,20 @@ export default function Home() {
           >
             Il Gabbiano <span className="text-sky-600">SRL</span>
           </motion.a>
-          <nav className="hidden gap-8 md:flex">
-            {["Servizi", "Perché noi", "Team", "Clienti"].map((label, i) => (
+
+          {/* Desktop nav */}
+          <nav className="hidden gap-8 lg:flex">
+            {navItems.map((item, i) => (
               <motion.a
-                key={label}
-                href={label === "Servizi" ? "#servizi" : label === "Perché noi" ? "#perche-noi" : label === "Team" ? "#team" : "#clienti"}
+                key={item.label}
+                href={item.href}
                 className="relative text-sm font-medium text-slate-600 after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-600 hover:after:w-full"
                 whileHover={{ y: -1 }}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 + i * 0.05 }}
               >
-                {label}
+                {item.label}
               </motion.a>
             ))}
             <motion.a
@@ -175,7 +199,62 @@ export default function Home() {
               Contatti
             </motion.a>
           </nav>
+
+          {/* Mobile burger button */}
+          <motion.button
+            type="button"
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            className="flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-slate-300 bg-slate-100 text-slate-800 shadow-sm lg:hidden"
+            aria-expanded={mobileMenuOpen}
+            aria-label={mobileMenuOpen ? "Chiudi menu" : "Apri menu"}
+            whileTap={{ scale: 0.96 }}
+          >
+            <span
+              className={`h-0.5 w-5 rounded-full bg-current transition-all ${mobileMenuOpen ? "translate-y-2 rotate-45" : ""}`}
+            />
+            <span className={`h-0.5 w-5 rounded-full bg-current transition-all ${mobileMenuOpen ? "opacity-0" : ""}`} />
+            <span
+              className={`h-0.5 w-5 rounded-full bg-current transition-all ${mobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            />
+          </motion.button>
         </div>
+
+        {/* Mobile menu panel */}
+        <motion.div
+          initial={false}
+          animate={{
+            height: mobileMenuOpen ? "auto" : 0,
+            opacity: mobileMenuOpen ? 1 : 0,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="overflow-hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl lg:hidden"
+        >
+          <nav className="flex flex-col gap-1 px-4 py-4">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.href);
+                }}
+                className="rounded-lg px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-600"
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="#contatti"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("#contatti");
+              }}
+              className="mt-2 rounded-full bg-sky-600 px-4 py-3 text-center text-base font-semibold text-white transition-colors hover:bg-sky-500"
+            >
+              Contatti
+            </a>
+          </nav>
+        </motion.div>
       </motion.header>
 
       {/* Hero */}
@@ -362,7 +441,7 @@ export default function Home() {
       </section>
 
       {/* Servizi */}
-      <section id="servizi" className="relative py-24 sm:py-32">
+      <section id="servizi" className="relative scroll-mt-20 py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div className="text-center" {...fadeIn}>
             <p className="text-sm font-semibold uppercase tracking-widest text-sky-600">
@@ -490,7 +569,7 @@ export default function Home() {
       </section>
 
       {/* Perché noi */}
-      <section id="perche-noi" className="relative border-t border-slate-200 bg-white py-24 sm:py-32">
+      <section id="perche-noi" className="relative scroll-mt-20 border-t border-slate-200 bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             className="relative mb-16 overflow-hidden rounded-2xl sm:mb-20"
@@ -583,7 +662,7 @@ export default function Home() {
       </section>
 
       {/* Il nostro team */}
-      <section id="team" className="relative border-t border-slate-200 bg-slate-50/50 py-24 sm:py-32">
+      <section id="team" className="relative scroll-mt-20 border-t border-slate-200 bg-slate-50/50 py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             className="text-center"
@@ -600,7 +679,11 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+            onClick={() => setSelectedTeamIndex(null)}
+            role="presentation"
+          >
             {[
               {
                 image: "/Antonietta-Festinese.jpeg",
@@ -624,7 +707,13 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ ...spring, delay: i * 0.1 }}
-                className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-200 shadow-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedTeamIndex((prev) => (prev === i ? null : i));
+                }}
+                className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-2xl bg-slate-200 shadow-lg touch-manipulation"
+                aria-expanded={selectedTeamIndex === i}
+                aria-label={`${member.name}, ${member.role}. Tocca per ${selectedTeamIndex === i ? "chiudere" : "vedere dettagli"}`}
               >
                 <Image
                   src={member.image}
@@ -634,13 +723,23 @@ export default function Home() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/0 p-6 text-center transition-colors duration-300 group-hover:bg-slate-900/75"
-                  aria-hidden
+                  className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-colors duration-300 group-hover:bg-slate-900/75 ${
+                    selectedTeamIndex === i ? "bg-slate-900/85" : "bg-slate-900/0"
+                  }`}
+                  aria-hidden={selectedTeamIndex !== i}
                 >
-                  <span className="mt-auto text-lg font-bold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:text-xl">
+                  <span
+                    className={`mt-auto text-lg font-bold text-white transition-opacity duration-300 sm:text-xl ${
+                      selectedTeamIndex === i ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    }`}
+                  >
                     {member.name}
                   </span>
-                  <span className="mt-1 text-sm font-medium text-sky-200 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:text-base">
+                  <span
+                    className={`mt-1 text-sm font-medium text-sky-200 transition-opacity duration-300 sm:text-base ${
+                      selectedTeamIndex === i ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    }`}
+                  >
                     {member.role}
                   </span>
                 </div>
@@ -696,7 +795,7 @@ export default function Home() {
       </section>
 
       {/* Clienti */}
-      <section id="clienti" className="relative overflow-hidden py-24 sm:py-32">
+      <section id="clienti" className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1920&q=60"
@@ -806,7 +905,7 @@ export default function Home() {
       </section>
 
       {/* Contatti */}
-      <section id="contatti" className="relative border-t border-slate-200 bg-slate-900 py-24 text-white sm:py-32">
+      <section id="contatti" className="relative scroll-mt-20 border-t border-slate-200 bg-slate-900 py-24 text-white sm:py-32">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_120%,rgba(14,165,233,0.15),transparent)]" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div className="text-center" {...fadeIn}>
