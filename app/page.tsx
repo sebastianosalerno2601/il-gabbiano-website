@@ -689,17 +689,17 @@ export default function Home() {
               {
                 image: "/Antonietta-Festinese.jpeg",
                 name: "Antonietta Festinese",
-                role: "Amministratore unico",
+                role: "Amministratore unico.",
               },
               {
                 image: "/Loredana-Palladino.jpeg",
                 name: "Loredana Palladino",
-                role: "Responsabile commerciale",
+                role: "Responsabile commerciale.",
               },
               {
                 image: "/Maria-Pia-Palladino.jpeg",
                 name: "Maria Pia Palladino",
-                role: "Responsabile alle vendite e responsabile commerciale",
+                role: "Responsabile alle vendite e responsabile commerciale.",
               },
             ].map((member, i) => (
               <motion.div
