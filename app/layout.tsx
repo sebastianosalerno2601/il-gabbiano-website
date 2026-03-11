@@ -13,19 +13,20 @@ const siteUrl = "https://vigilanzanonarmatailgabbiano.it";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Il Gabbiano SRL | Vigilanza non armata e portierato a Napoli",
+    default: "Vigilanza non armata Napoli | Portierato e sicurezza | Il Gabbiano SRL",
     template: "%s | Il Gabbiano SRL",
   },
   description:
-    "Servizi di vigilanza non armata, videosorveglianza, portierato e servizi d'ordine a Napoli. Sicurezza e professionalità dal 2007. Preventivi gratuiti.",
+    "Vigilanza non armata a Napoli e Campania, portierato, videosorveglianza e servizi d'ordine. Dal 2007 sicurezza per aziende e condomini. Preventivo gratuito.",
   keywords: [
     "vigilanza non armata Napoli",
     "portierato Napoli",
-    "servizi sicurezza Campania",
-    "videosorveglianza",
+    "vigilanza non armata Campania",
+    "servizi sicurezza Napoli",
+    "videosorveglianza Napoli",
     "servizi d'ordine",
-    "Il Gabbiano vigilanza",
     "sorveglianza aziende Napoli",
+    "portierato condomini Napoli",
   ],
   authors: [{ name: "Il Gabbiano SRL", url: siteUrl }],
   creator: "Il Gabbiano SRL",
@@ -34,14 +35,14 @@ export const metadata: Metadata = {
     locale: "it_IT",
     url: siteUrl,
     siteName: "Il Gabbiano SRL",
-    title: "Il Gabbiano SRL | Vigilanza non armata e portierato a Napoli",
+    title: "Vigilanza non armata Napoli | Portierato | Il Gabbiano SRL",
     description:
-      "Servizi di vigilanza non armata, videosorveglianza e portierato a Napoli. Dal 2007, sicurezza e professionalità per privati e aziende.",
+      "Vigilanza non armata a Napoli e Campania, portierato e videosorveglianza. Dal 2007. Preventivo gratuito.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Il Gabbiano SRL | Vigilanza non armata e portierato a Napoli",
-    description: "Servizi di vigilanza non armata, videosorveglianza e portierato a Napoli. Dal 2007.",
+    title: "Vigilanza non armata Napoli | Portierato | Il Gabbiano SRL",
+    description: "Vigilanza non armata a Napoli e Campania, portierato e videosorveglianza. Dal 2007. Preventivo gratuito.",
   },
   robots: {
     index: true,

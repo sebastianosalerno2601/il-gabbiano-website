@@ -120,6 +120,7 @@ export default function Home() {
     { label: "Perché noi", href: "#perche-noi" },
     { label: "Team", href: "#team" },
     { label: "Clienti", href: "#clienti" },
+    { label: "FAQ", href: "#faq" },
   ];
 
   const scrollToSection = (hash: string) => {
@@ -354,9 +355,9 @@ export default function Home() {
               transition={{ ...spring, delay: 0.6 }}
               className="mt-6 max-w-xl text-lg text-slate-600"
             >
-              Garantiamo la sicurezza dei nostri clienti con servizi di sorveglianza discreta,
-              videosorveglianza e front office di eccellenza. Tecnologia, formazione e rispetto
-              delle normative per una tutela irreprensibile.
+              Vigilanza non armata e portierato a Napoli e in Campania: sorveglianza discreta,
+              videosorveglianza e front office. Tecnologia, formazione e rispetto delle normative
+              per la sicurezza di aziende e condomini.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -448,11 +449,11 @@ export default function Home() {
               Cosa offriamo
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Servizi di sicurezza e accoglienza
+              Vigilanza non armata e portierato a Napoli
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-              Un servizio studiato in ogni dettaglio, con risorse adeguate in termini di mezzi
-              tecnologici e personale formato.
+              Servizi di sicurezza e accoglienza a Napoli e in Campania: personale formato,
+              mezzi tecnologici e rispetto della normativa (D.M. 269/2010).
             </p>
           </motion.div>
 
@@ -902,6 +903,95 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+      </section>
+
+      {/* FAQ - domande frequenti (SEO e snippet Google) */}
+      <section id="faq" className="relative scroll-mt-20 border-t border-slate-200 bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <motion.div className="text-center" {...fadeIn}>
+            <p className="text-sm font-semibold uppercase tracking-widest text-sky-600">
+              Domande frequenti
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              Vigilanza non armata e portierato a Napoli: cosa sapere
+            </h2>
+          </motion.div>
+          <dl className="mt-12 space-y-6">
+            {[
+              {
+                q: "Cos'è la vigilanza non armata?",
+                a: "La vigilanza non armata è un servizio di sorveglianza e controllo del territorio senza uso di armi. Include controllo accessi, verifica impianti, prevenzione incendi e allagamenti, registrazione presenze e tutto quanto concordato con il cliente, nel rispetto del D.M. n. 269/2010.",
+              },
+              {
+                q: "Dove opera Il Gabbiano per vigilanza e portierato?",
+                a: "Operiamo a Napoli e in tutta la Campania: condomini, aziende, uffici, centri commerciali e realtà che richiedono servizi di vigilanza non armata, portierato, front office e videosorveglianza.",
+              },
+              {
+                q: "Come richiedere un preventivo per vigilanza o portierato?",
+                a: "Puoi chiamarci al 331 998 9456 o passare in sede al Centro Direzionale Isola A/7 a Napoli. Forniamo preventivi gratuiti e su misura per vigilanza non armata, portierato e servizi d'ordine.",
+              },
+              {
+                q: "Il personale è formato secondo la normativa?",
+                a: "Sì. I nostri addetti sono formati e aggiornati secondo il D.M. n. 269/2010 e le disposizioni di pubblica sicurezza. Garantiamo professionalità, puntualità e piena conformità normativa.",
+              },
+            ].map((faq, i) => (
+              <motion.div
+                key={faq.q}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ ...spring, delay: i * 0.08 }}
+                className="rounded-xl border border-slate-200 bg-slate-50/50 p-6"
+              >
+                <dt className="text-lg font-bold text-slate-900">{faq.q}</dt>
+                <dd className="mt-3 text-slate-600">{faq.a}</dd>
+              </motion.div>
+            ))}
+          </dl>
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "Cos'è la vigilanza non armata?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "La vigilanza non armata è un servizio di sorveglianza e controllo del territorio senza uso di armi. Include controllo accessi, verifica impianti, prevenzione incendi e allagamenti, registrazione presenze e tutto quanto concordato con il cliente, nel rispetto del D.M. n. 269/2010.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Dove opera Il Gabbiano per vigilanza e portierato?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Operiamo a Napoli e in tutta la Campania: condomini, aziende, uffici, centri commerciali e realtà che richiedono servizi di vigilanza non armata, portierato, front office e videosorveglianza.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Come richiedere un preventivo per vigilanza o portierato?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Puoi chiamarci al 331 998 9456 o passare in sede al Centro Direzionale Isola A/7 a Napoli. Forniamo preventivi gratuiti e su misura per vigilanza non armata, portierato e servizi d'ordine.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Il personale è formato secondo la normativa?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Sì. I nostri addetti sono formati e aggiornati secondo il D.M. n. 269/2010 e le disposizioni di pubblica sicurezza. Garantiamo professionalità, puntualità e piena conformità normativa.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
       </section>
 
       {/* Contatti */}
